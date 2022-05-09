@@ -23,10 +23,10 @@ class RSA:
         return p
 
     def private_key_generator(self):
-        x = RSA.xgcd(self.e, self.fi)
+        x = RSA.gcd(self.e, self.fi)
         self.d = x[1] % self.fi
 
-    def xgcd(a, b):
+    def gcd(a, b):
         if b == 0:
             return 0,1,0
  
@@ -40,13 +40,24 @@ class RSA:
             r = a - b * q
             u = u0 - q * u1
             v = v0 - q * v1
-            #Update a,b
+            # Update a, b
             a = b
             b = r
-            #Update for next iteration
+            # Update for next iteration
             u0 = u1
             u1 = u
             v0 = v1
             v1 = v
  
         return  a, u0, v0
+
+class RSASignature:
+    def __init__(self, rsakeyset = RSA()):
+        self.rsakeyset = rsakeyset
+
+    def sign(self, to_sign):
+        self.signature = pow(to_sign, self.rsakeyset.d, self.rsakeyset.n)
+        return self.signature
+
+    def verify(signature, e, n):
+        return pow(signature, e, n)
