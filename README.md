@@ -4,3 +4,5 @@ Versión de TLS 1.2 terminada. El proceso de verificación está siendo mejorado
 del Certificado y comprobar las Huellas digitales.
 
 Versión de TLS 1.3 (En desarrollo).
+
+Es una aplicación gráfica.
